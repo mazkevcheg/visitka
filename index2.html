@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="meta.title">Портфолио</title>
+  <style>
+    :root {
+      --bg-top: #050816;
+      --bg-bottom: #1a0730;
+      --surface: rgba(15, 20, 42, 0.72);
+      --surface-strong: rgba(23, 24, 58, 0.85);
+      --text: #f5f5f7;
+      --muted: #c6c7d6;
+      --accent: #7c3aed;
+      --accent-2: #a855f7;
+      --line: rgba(245, 245, 247, 0.12);
+      --radius: 18px;
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at 15% 0%, rgba(168, 85, 247, 0.22), transparent 35%),
+                  radial-gradient(circle at 90% 10%, rgba(124, 58, 237, 0.18), transparent 28%),
+                  linear-gradient(160deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.55;
+    }
+
+    .container {
+      width: min(1060px, 92vw);
+      margin: 0 auto;
+    }
+
+    @keyframes floatAvatar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.45;
+      }
+      50% {
+        transform: scale(1.08);
+        opacity: 0.95;
+      }
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(5, 8, 22, 0.7);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.85rem 0;
+    }
+
+    .brand {
+      margin: 0;
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .nav {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.25s ease;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      color: var(--text);
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.15rem;
+      background: rgba(245, 245, 247, 0.04);
+    }
+
+    .lang-btn {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 0.4rem 0.65rem;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
+    }
+
+    .lang-btn:hover {
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .lang-btn.is-active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #ffffff;
+      box-shadow: 0 8px 18px rgba(124, 58, 237, 0.35);
+    }
+
+    .lang-btn:focus-visible,
+    .contact-link:focus-visible,
+    .social-link:focus-visible,
+    .email-link:focus-visible,
+    .nav a:focus-visible {
+      outline: 2px solid var(--accent-2);
+      outline-offset: 2px;
+    }
+
+    main {
+      padding: 2.2rem 0 3rem;
+    }
+
+    section {
+      margin: 1.15rem 0 1.8rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      padding: 1.3rem;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: transform 0.45s ease, opacity 0.45s ease;
+    }
+
+    section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    main section:nth-of-type(2) {
+      transition-delay: 0.08s;
+    }
+
+    main section:nth-of-type(3) {
+      transition-delay: 0.16s;
+    }
+
+    .hero-grid {
+      display: grid;
+      gap: 1.3rem;
+      align-items: center;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 2.7rem);
+      line-height: 1.08;
+    }
+
+    .hero-role {
+      margin: 0.75rem 0 0;
+      color: #d5b4ff;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.88rem;
+    }
+
+    .hero-lead {
+      margin: 0.9rem 0 0;
+      color: var(--muted);
+      max-width: 58ch;
+    }
+
+    .hero-actions {
+      margin-top: 1.2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      padding: 0.62rem 0.95rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease, box-shadow 0.3s ease, border-color 0.25s ease;
+    }
+
+    .contact-link.primary {
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 12px 26px rgba(124, 58, 237, 0.35);
+    }
+
+    .contact-link.secondary {
+      color: var(--text);
+      border-color: var(--line);
+      background: rgba(245, 245, 247, 0.03);
+    }
+
+    .contact-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
+    }
+
+    .avatar {
+      width: min(240px, 66vw);
+      aspect-ratio: 1;
+      margin: 0 auto;
+      border-radius: 50%;
+      padding: 8px;
+      background: linear-gradient(160deg, rgba(168, 85, 247, 0.85), rgba(24, 20, 56, 0.85));
+      box-shadow: 0 22px 40px rgba(0, 0, 0, 0.35);
+      position: relative;
+      isolation: isolate;
+      animation: floatAvatar 6s ease-in-out infinite;
+    }
+
+    .avatar::before {
+      content: "";
+      position: absolute;
+      inset: -18px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 10%, rgba(168, 85, 247, 0.7), transparent 55%),
+        radial-gradient(circle at 70% 90%, rgba(124, 58, 237, 0.65), transparent 55%);
+      filter: blur(24px);
+      opacity: 0.6;
+      z-index: -1;
+      animation: pulseGlow 3.2s ease-in-out infinite;
+    }
+
+    .avatar::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 1px solid rgba(245, 245, 247, 0.22);
+      pointer-events: none;
+    }
+
+    .avatar-photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      border: 1px solid rgba(245, 245, 247, 0.18);
+      background: linear-gradient(165deg, #35224d, #111629);
+    }
+
+    .section-title {
+      margin: 0 0 0.8rem;
+      font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+    }
+
+    .about p {
+      margin: 0.7rem 0;
+      color: var(--muted);
+      max-width: 72ch;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .email-link {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 1px solid rgba(245, 245, 247, 0.35);
+      transition: border-color 0.25s ease, color 0.25s ease;
+    }
+
+    .email-link:hover {
+      border-color: var(--accent-2);
+      color: #e9d2ff;
+    }
+
+    .socials {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.86rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      background: var(--surface-strong);
+      transition: transform 0.2s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .social-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(168, 85, 247, 0.65);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+    }
+
+    .site-footer {
+      padding: 0.3rem 0 1.7rem;
+      color: #a8abc7;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr) 290px;
+      }
+
+      section {
+        padding: 1.6rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        gap: 0.75rem;
+      }
+
+      .hero-actions {
+        width: 100%;
+      }
+
+      .contact-link {
+        flex: 1 1 auto;
+      }
+
+      .contact-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      section {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <p class="brand" data-i18n="brand">Portfolio</p>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#hero" data-i18n="nav.hero">Герой</a>
+        <a href="#about" data-i18n="nav.about">О себе</a>
+        <a href="#contact" data-i18n="nav.contact">Контакты</a>
+      </nav>
+      <div class="lang-switch" role="group" aria-label="Language switch">
+        <button class="lang-btn" type="button" data-lang="ru" aria-pressed="false">RU</button>
+        <button class="lang-btn" type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="hero" aria-labelledby="hero-title">
+      <div class="hero-grid">
+        <div>
+          <p class="hero-role" data-i18n="hero.role">Frontend developer</p>
+          <h1 id="hero-title" class="hero-title" data-i18n="hero.title">Ваше Имя Фамилия</h1>
+          <p class="hero-lead" data-i18n="hero.lead">
+            Создаю быстрые и аккуратные интерфейсы, где визуальная выразительность поддерживает бизнес-цели и удобство пользователей.
+          </p>
+          <div class="hero-actions">
+            <a class="contact-link primary" href="#contact" data-i18n="hero.ctaPrimary">Связаться</a>
+            <a class="contact-link secondary" href="#about" data-i18n="hero.ctaSecondary">Подробнее</a>
+          </div>
+        </div>
+        <figure class="avatar">
+          <img
+            class="avatar-photo"
+            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%238f5dff'/%3E%3Cstop offset='1' stop-color='%23131b35'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='800' height='800' fill='url(%23g)'/%3E%3Ccircle cx='400' cy='300' r='145' fill='%23e6d9ff' fill-opacity='.75'/%3E%3Cpath d='M170 690c40-130 140-210 230-210s190 80 230 210' fill='%23f3ecff' fill-opacity='.8'/%3E%3C/svg%3E"
+            alt="Profile photo"
+          />
+        </figure>
+      </div>
+    </section>
+
+    <section id="about" class="about" aria-labelledby="about-title">
+      <h2 id="about-title" class="section-title" data-i18n="about.title">О себе</h2>
+      <p data-i18n="about.p1">Работаю на стыке дизайна и разработки: продумываю структуру, визуальные акценты и сценарии взаимодействия.</p>
+      <p data-i18n="about.p2">Люблю чистую архитектуру фронтенда, поддерживаемые компоненты и понятные решения для командной работы.</p>
+      <p data-i18n="about.p3">Открыт к проектам, где важны скорость, качество реализации и внимание к деталям.</p>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title" class="section-title" data-i18n="contact.title">Контакты</h2>
+      <div class="contact-row">
+        <a class="email-link" href="mailto:hello@example.com">hello@example.com</a>
+        <div class="socials" aria-label="Social links">
+          <a class="social-link" href="https://github.com/username" target="_blank" rel="noreferrer noopener" aria-label="GitHub">GH</a>
+          <a class="social-link" href="https://www.linkedin.com/in/username" target="_blank" rel="noreferrer noopener" aria-label="LinkedIn">IN</a>
+          <a class="social-link" href="https://t.me/username" target="_blank" rel="noreferrer noopener" aria-label="Telegram">TG</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <small data-i18n="footer.copy">© 2026 Ваше Имя. Все права защищены.</small>
+    </div>
+  </footer>
+
+  <script>
+    const content = {
+      ru: {
+        meta: { title: "Портфолио" },
+        brand: "Portfolio",
+        nav: { hero: "Герой", about: "О себе", contact: "Контакты" },
+        hero: {
+          role: "Frontend developer",
+          title: "Ваше Имя Фамилия",
+          lead: "Создаю быстрые и аккуратные интерфейсы, где визуальная выразительность поддерживает бизнес-цели и удобство пользователей.",
+          ctaPrimary: "Связаться",
+          ctaSecondary: "Подробнее"
+        },
+        about: {
+          title: "О себе",
+          p1: "Работаю на стыке дизайна и разработки: продумываю структуру, визуальные акценты и сценарии взаимодействия.",
+          p2: "Люблю чистую архитектуру фронтенда, поддерживаемые компоненты и понятные решения для командной работы.",
+          p3: "Открыт к проектам, где важны скорость, качество реализации и внимание к деталям."
+        },
+        contact: { title: "Контакты" },
+        footer: { copy: "© 2026 Ваше Имя. Все права защищены." }
+      },
+      en: {
+        meta: { title: "Portfolio" },
+        brand: "Portfolio",
+        nav: { hero: "Hero", about: "About", contact: "Contacts" },
+        hero: {
+          role: "Frontend developer",
+          title: "Your Name Surname",
+          lead: "I build fast and polished interfaces where visual expression supports business goals and user comfort.",
+          ctaPrimary: "Contact me",
+          ctaSecondary: "Learn more"
+        },
+        about: {
+          title: "About",
+          p1: "I work at the intersection of design and development, shaping structure, visual hierarchy, and interaction flows.",
+          p2: "I value clean frontend architecture, maintainable components, and straightforward collaboration practices.",
+          p3: "Open to projects where speed, build quality, and attention to detail truly matter."
+        },
+        contact: { title: "Contacts" },
+        footer: { copy: "© 2026 Your Name. All rights reserved." }
+      }
+    };
+
+    const langButtons = document.querySelectorAll(".lang-btn");
+    const i18nNodes = document.querySelectorAll("[data-i18n]");
+    const sections = document.querySelectorAll("main section");
+
+    function getValue(path, lang) {
+      return path.split(".").reduce((acc, part) => (acc && acc[part] !== undefined ? acc[part] : null), content[lang]);
+    }
+
+    function setLanguage(lang) {
+      const selected = content[lang] ? lang : "ru";
+
+      i18nNodes.forEach((node) => {
+        const key = node.dataset.i18n;
+        const value = getValue(key, selected);
+        if (value !== null) {
+          node.textContent = value;
+        }
+      });
+
+      document.documentElement.lang = selected;
+      document.title = content[selected].meta.title;
+
+      langButtons.forEach((btn) => {
+        const isActive = btn.dataset.lang === selected;
+        btn.classList.toggle("is-active", isActive);
+        btn.setAttribute("aria-pressed", String(isActive));
+      });
+
+      localStorage.setItem("portfolio-language", selected);
+    }
+
+    const savedLanguage = localStorage.getItem("portfolio-language") || "ru";
+    setLanguage(savedLanguage);
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      sections.forEach((section) => section.classList.add("is-visible"));
+    } else {
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2, rootMargin: "0px 0px -30px 0px" }
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    }
+
+    langButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        setLanguage(btn.dataset.lang);
+      });
+    });
+  </script>
+</body>
+</html>

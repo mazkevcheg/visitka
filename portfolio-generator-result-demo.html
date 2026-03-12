@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Портфолио — Алексей Орлов</title>
+  <style>
+    :root {
+      --bg-top: #050505;
+      --bg-bottom: #111827;
+      --surface: rgba(15, 23, 42, 0.96);
+      --surface-soft: rgba(17, 24, 39, 0.98);
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --accent: #7c3aed;
+      --accent-2: #22d3ee;
+      --line: rgba(148, 163, 184, 0.3);
+      --radius: 18px;
+      --shadow: 0 26px 70px rgba(0, 0, 0, 0.75);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 10% -10%, rgba(255, 255, 255, 0.08), transparent 55%),
+        radial-gradient(circle at 90% 110%, rgba(156, 163, 175, 0.08), transparent 55%),
+        linear-gradient(155deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+      color: var(--text);
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      padding: 1.8rem 1rem 2.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes bgFloat {
+      0% { transform: translate3d(0, 0, 0); }
+      50% { transform: translate3d(-10px, 8px, 0); }
+      100% { transform: translate3d(0, 0, 0); }
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0 0, rgba(148, 163, 184, 0.12), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(75, 85, 99, 0.16), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      animation: bgFloat 32s ease-in-out infinite alternate;
+    }
+
+    .shell {
+      width: min(1080px, 100%);
+      border-radius: 26px;
+      background: linear-gradient(135deg, rgba(249, 250, 251, 0.1), rgba(31, 41, 55, 0.65));
+      padding: 1px;
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 1;
+    }
+
+    .shell-inner {
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 0 0, rgba(55, 65, 81, 0.6), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(31, 41, 55, 0.9), transparent 55%),
+        var(--surface);
+      padding: 1.6rem clamp(1.4rem, 3vw, 2rem) 1.9rem;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.4rem;
+      align-items: center;
+      margin-bottom: 1.6rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 0.95rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.86rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: color 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
+    }
+
+    nav a:hover {
+      color: var(--text);
+      background-color: rgba(31, 41, 55, 0.9);
+      border-color: var(--line);
+    }
+
+    .pill {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.32rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: radial-gradient(circle at 0 0, rgba(34, 211, 238, 0.2), transparent 65%);
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    @keyframes pillGlow {
+      0%, 100% { opacity: 0.2; transform: translateX(-40%); }
+      50% { opacity: 0.8; transform: translateX(40%); }
+    }
+
+    .pill::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.7), transparent);
+      opacity: 0.4;
+      mix-blend-mode: screen;
+      animation: pillGlow 5.4s ease-in-out infinite;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 1.6rem;
+    }
+
+    @media (max-width: 880px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero {
+      padding: 1.1rem 1.1rem 1.3rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 0 0, rgba(55, 65, 81, 0.9), transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(17, 24, 39, 0.85), transparent 55%),
+        var(--surface-soft);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9);
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) auto;
+      gap: 1.3rem;
+      align-items: center;
+    }
+
+    @media (max-width: 720px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(1.8rem, 3.2vw, 2.3rem);
+      line-height: 1.1;
+    }
+
+    .hero-role {
+      margin: 0.75rem 0 0;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: #e5e7eb;
+    }
+
+    .hero-lead {
+      margin: 0.9rem 0 0;
+      font-size: 0.96rem;
+      color: var(--muted);
+      max-width: 42rem;
+    }
+
+    .hero-meta {
+      margin: 0.9rem 0 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hero-meta span {
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background-color: rgba(17, 24, 39, 0.9);
+    }
+
+    @keyframes floatAvatar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes avatarGlow {
+      0%, 100% { opacity: 0.4; transform: scale(0.96); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    .avatar {
+      width: 140px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      padding: 7px;
+      background: radial-gradient(circle at 0 0, var(--accent-2), var(--accent));
+      position: relative;
+      isolation: isolate;
+      animation: floatAvatar 6s ease-in-out infinite;
+    }
+
+    .avatar::before {
+      content: "";
+      position: absolute;
+      inset: -18px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 0, rgba(34, 211, 238, 0.6), transparent 60%),
+        radial-gradient(circle at 70% 100%, rgba(124, 58, 237, 0.7), transparent 60%);
+      filter: blur(20px);
+      opacity: 0.7;
+      z-index: -1;
+      animation: avatarGlow 3.4s ease-in-out infinite;
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 0, #f9fafb, #111827);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .section {
+      margin-top: 1.2rem;
+      padding: 1.05rem 1.1rem 1.25rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: radial-gradient(circle at 0 0, rgba(55, 65, 81, 0.65), transparent 60%),
+                  rgba(17, 24, 39, 0.98);
+      animation: cardAppear 0.6s ease forwards;
+    }
+
+    .section:nth-of-type(2) { animation-delay: 0.05s; }
+    .section:nth-of-type(3) { animation-delay: 0.1s; }
+
+    @keyframes cardAppear {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      margin: 0 0 0.55rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #e5e7eb;
+    }
+
+    .section p {
+      margin: 0.3rem 0 0.7rem;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.3rem;
+    }
+
+    .tag {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      font-size: 0.78rem;
+      color: var(--muted);
+      background-color: rgba(15, 23, 42, 0.98);
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.7rem;
+      margin-top: 0.5rem;
+    }
+
+    @media (min-width: 700px) {
+      .projects {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .project-card {
+      border-radius: 14px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      padding: 0.75rem 0.85rem 0.9rem;
+      background:
+        radial-gradient(circle at 0 0, rgba(55, 65, 81, 0.9), transparent 60%),
+        rgba(17, 24, 39, 0.98);
+      font-size: 0.88rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      transition: transform 0.16s ease, box-shadow 0.2s ease, border-color 0.18s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 34px rgba(0, 0, 0, 0.9);
+      border-color: rgba(156, 163, 175, 1);
+    }
+
+    .project-title {
+      margin: 0;
+      font-size: 0.96rem;
+      color: #e5e7eb;
+    }
+
+    .project-meta {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .badge-soft {
+      display: inline-block;
+      margin-top: 0.15rem;
+      font-size: 0.75rem;
+      color: #e5e7eb;
+      padding: 0.16rem 0.65rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(34, 211, 238, 0.4));
+    }
+
+    .contacts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 0.28rem 0.7rem;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.16s ease;
+    }
+
+    .chip strong { color: #e5e7eb; }
+
+    .chip:hover {
+      background-color: rgba(55, 65, 81, 0.9);
+      transform: translateY(-1px);
+      border-color: rgba(156, 163, 175, 1);
+    }
+
+    footer {
+      margin-top: 1.1rem;
+      font-size: 0.78rem;
+      color: rgba(156, 163, 175, 0.9);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="shell-inner">
+      <header>
+        <div class="logo">Generated with Portfolio Wizard</div>
+        <nav>
+          <a href="#about">О себе</a>
+          <a href="#projects">Проекты</a>
+          <a href="#contacts">Контакты</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div>
+            <div class="pill">product designer • frontend</div>
+            <h1 class="hero-title">Алексей Орлов</h1>
+            <p class="hero-role">Digital Product Designer &amp; Frontend Engineer</p>
+            <p class="hero-lead">
+              Помогаю компаниям превращать сырые идеи в удобные цифровые продукты:
+              от первых прототипов и дизайн‑систем до реализации интерфейсов в продакшене.
+            </p>
+            <div class="hero-meta">
+              <span>6+ лет в продуктовой разработке</span>
+              <span>Москва · удалённо worldwide</span>
+            </div>
+          </div>
+          <div class="avatar" aria-hidden="true">
+            <div class="avatar-inner">AO</div>
+          </div>
+        </section>
+
+        <section class="section" id="about">
+          <h2 class="section-title">О себе</h2>
+          <p>
+            Работал в продуктовых командах fintech и edtech‑стартапов, где отвечал за
+            UX‑исследования, прототипирование и реализацию интерфейсов на React. Люблю
+            работать на стыке дизайна и разработки — это помогает быстрее проверять гипотезы
+            и не терять задумку по дороге до кода.
+          </p>
+          <p>
+            В проектах опираюсь на данные и наблюдения за живыми пользователями, а не только
+            на «красивые экраны». Важны внятные метрики, прозрачные процессы и человеческая
+            коммуникация в команде.
+          </p>
+          <div class="stack">
+            <span class="tag">Figma · Design Systems</span>
+            <span class="tag">React · TypeScript</span>
+            <span class="tag">Framer Motion</span>
+            <span class="tag">UX Research</span>
+          </div>
+        </section>
+
+        <section class="section" id="projects">
+          <h2 class="section-title">Выбранные проекты</h2>
+          <div class="projects">
+            <article class="project-card">
+              <h3 class="project-title">Finetrack — дашборд личных финансов</h3>
+              <p class="project-meta">
+                Перепроектировал онбординг и основную аналитику, сократив время настройки
+                профиля на 40% и увеличив долю активных пользователей на 18%.
+              </p>
+              <span class="badge-soft">UX &amp; UI · дизайн‑система · React</span>
+            </article>
+            <article class="project-card">
+              <h3 class="project-title">Studyloop — платформа микро‑обучения</h3>
+              <p class="project-meta">
+                Спроектировал ленту микро‑курсов и редактор контента для авторов. Добились
+                увеличения дневного удержания на 12 п.п. за счёт более понятных сценариев.
+              </p>
+              <span class="badge-soft">Product design · прототипирование</span>
+            </article>
+            <article class="project-card">
+              <h3 class="project-title">Internal DesignOps‑портал</h3>
+              <p class="project-meta">
+                Внутренний портал для команды: библиотека компонентов, шаблоны фреймов
+                и чек‑листы выкаток. Сократил «вход в проект» для новых дизайнеров с двух
+                недель до нескольких дней.
+              </p>
+              <span class="badge-soft">DesignOps · документация</span>
+            </article>
+            <article class="project-card">
+              <h3 class="project-title">Эксперименты с интерфейсами</h3>
+              <p class="project-meta">
+                Небольшие концепты и pet‑projects: тёмные UI для трейдинга, визуализации
+                привычек и интерактивные лендинги. Использую их как песочницу для новых
+                паттернов и анимаций.
+              </p>
+              <span class="badge-soft">Side‑projects · motion</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="contacts">
+          <h2 class="section-title">Контакты</h2>
+          <p>
+            Открыт к продуктовым ролям уровня middle+/senior, а также к точечным консультациям
+            по UX и фронтенду. Кратко опишите задачу — и я предложу формат работы.
+          </p>
+          <div class="contacts">
+            <a class="chip" href="mailto:hello.orellex@example.com">
+              <strong>Email</strong><span>hello.orellex@example.com</span>
+            </a>
+            <a class="chip" href="https://t.me/orellex" target="_blank" rel="noopener noreferrer">
+              <strong>Telegram</strong><span>@orellex</span>
+            </a>
+            <a class="chip" href="https://github.com/orellex" target="_blank" rel="noopener noreferrer">
+              <strong>GitHub</strong><span>github.com/orellex</span>
+            </a>
+            <a class="chip" href="https://dribbble.com/orellex" target="_blank" rel="noopener noreferrer">
+              <strong>Dribbble</strong><span>shots &amp; concepts</span>
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <span>Сайт сгенерирован мастером портфолио · вымышленные данные</span>
+        <span>2025 · Dark grey UI preset</span>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>
+

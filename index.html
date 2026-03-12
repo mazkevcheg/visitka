@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="meta.title">Имя Фамилия — Заголовок</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: #f5f5f7;
+      background: linear-gradient(160deg, #050816 0%, #0f0a1e 40%, #1a0730 100%);
+      background-size: 200% 200%;
+      background-attachment: fixed;
+      position: relative;
+      animation: gradient-shift 22s ease-in-out infinite;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(168, 85, 247, 0.55), transparent 55%),
+        radial-gradient(circle at 85% 100%, rgba(124, 58, 237, 0.45), transparent 55%);
+      filter: blur(32px);
+      opacity: 0.55;
+      pointer-events: none;
+      transform: scale(1);
+      animation: bg-radial-pulse 18s ease-in-out infinite;
+    }
+    @keyframes gradient-shift {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 100%; }
+      100% { background-position: 0% 0%; }
+    }
+    @keyframes bg-radial-pulse {
+      0%, 100% {
+        opacity: 0.4;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.9;
+        transform: scale(1.08);
+      }
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    @media (min-width: 1024px) {
+      .container { max-width: 1080px; padding: 0 2rem; }
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 1rem 0;
+      background: rgba(5, 8, 22, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+    }
+    header .container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #f5f5f7;
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .logo:hover { color: #a855f7; }
+    .logo:focus-visible {
+      outline: 2px solid #a855f7;
+      outline-offset: 4px;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    nav a {
+      color: rgba(245, 245, 247, 0.85);
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+    nav a:hover { color: #a855f7; background: rgba(124, 58, 237, 0.15); }
+    nav a:focus-visible {
+      outline: 2px solid #a855f7;
+      outline-offset: 2px;
+    }
+    .lang-switch {
+      display: flex;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(124, 58, 237, 0.4);
+    }
+    .lang-switch button {
+      padding: 0.4rem 0.85rem;
+      font-size: 0.9rem;
+      font-family: inherit;
+      color: rgba(245, 245, 247, 0.9);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-switch button:hover { background: rgba(124, 58, 237, 0.2); color: #f5f5f7; }
+    .lang-switch button.active {
+      background: #7c3aed;
+      color: #fff;
+    }
+    .lang-switch button:focus-visible {
+      outline: 2px solid #a855f7;
+      outline-offset: 0;
+    }
+    .lang-switch button[aria-pressed="true"] { font-weight: 600; }
+
+    /* Main */
+    main { padding: 2rem 0 4rem; }
+    section {
+      margin-bottom: 3rem;
+      padding: 2rem;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(124, 58, 237, 0.15);
+    }
+    @media (max-width: 768px) {
+      section { padding: 1.5rem; margin-bottom: 2rem; }
+    }
+
+    /* Hero */
+    #hero {
+      display: grid;
+      gap: 1.5rem;
+      text-align: center;
+    }
+    @media (min-width: 1024px) {
+      #hero {
+        grid-template-columns: 1fr auto;
+        text-align: left;
+        align-items: center;
+        gap: 2rem;
+      }
+    }
+    .hero-name {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0;
+      background: linear-gradient(135deg, #f5f5f7 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    @media (min-width: 768px) { .hero-name { font-size: 2.5rem; } }
+    @media (min-width: 1024px) { .hero-name { font-size: 2.75rem; } }
+    .hero-title {
+      font-size: 1.25rem;
+      color: #a855f7;
+      margin: 0.25rem 0 0;
+      font-weight: 500;
+    }
+    .hero-desc {
+      font-size: 1rem;
+      color: rgba(245, 245, 247, 0.85);
+      margin: 1rem 0 0;
+      max-width: 52ch;
+    }
+    @media (min-width: 1024px) { .hero-desc { margin-left: 0; } }
+    #hero .avatar-placeholder {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto;
+      border-radius: 50%;
+      overflow: hidden;
+      background: linear-gradient(135deg, #7c3aed 0%, #1a0730 100%);
+      background-size: 200% 200%;
+      border: 3px solid rgba(168, 85, 247, 0.5);
+      animation: avatar-gradient 18s ease-in-out infinite;
+    }
+    #hero .avatar-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    @keyframes avatar-gradient {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 0%; }
+      100% { background-position: 0% 0%; }
+    }
+    @media (min-width: 1024px) {
+      #hero .avatar-placeholder { order: 2; margin: 0; width: 140px; height: 140px; }
+    }
+
+    /* About */
+    #about h2 {
+      font-size: 1.5rem;
+      margin: 0 0 1rem;
+      color: #f5f5f7;
+    }
+    #about p {
+      margin: 0 0 1rem;
+      color: rgba(245, 245, 247, 0.9);
+    }
+    #about p:last-child { margin-bottom: 0; }
+    @media (max-width: 768px) {
+      #about h2 { font-size: 1.35rem; }
+      #about p { font-size: 15px; }
+    }
+
+    /* Contact */
+    #contact h2 {
+      font-size: 1.5rem;
+      margin: 0 0 1.25rem;
+      color: #f5f5f7;
+    }
+    .contact-email {
+      display: inline-block;
+      color: #a855f7;
+      text-decoration: none;
+      margin-bottom: 1rem;
+      transition: color 0.2s;
+    }
+    .contact-email:hover { color: #c084fc; }
+    .contact-email:focus-visible {
+      outline: 2px solid #a855f7;
+      outline-offset: 4px;
+    }
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(124, 58, 237, 0.2);
+      color: #a855f7;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .social-links a:hover {
+      background: rgba(124, 58, 237, 0.35);
+      color: #f5f5f7;
+      transform: translateY(-2px);
+    }
+    .social-links a:focus-visible {
+      outline: 2px solid #a855f7;
+      outline-offset: 2px;
+    }
+
+    /* Footer */
+    footer {
+      padding: 1.5rem 0;
+      border-top: 1px solid rgba(124, 58, 237, 0.2);
+      text-align: center;
+      color: rgba(245, 245, 247, 0.7);
+      font-size: 0.9rem;
+    }
+    footer .container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    footer .lang-switch { margin-left: 0.5rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="#hero" class="logo" data-i18n="header.name">Имя Фамилия</a>
+      <nav>
+        <a href="#hero" data-i18n="nav.hero">Герой</a>
+        <a href="#about" data-i18n="nav.about">О себе</a>
+        <a href="#contact" data-i18n="nav.contact">Контакты</a>
+        <div class="lang-switch" role="tablist" aria-label="Выбор языка">
+          <button type="button" role="tab" aria-pressed="true" data-lang="ru" aria-selected="true">RU</button>
+          <button type="button" role="tab" aria-pressed="false" data-lang="en" aria-selected="false">EN</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section id="hero">
+        <div>
+          <h1 class="hero-name" data-i18n="hero.name">Имя Фамилия</h1>
+          <p class="hero-title" data-i18n="hero.title">Ваша должность или слоган</p>
+          <p class="hero-desc" data-i18n="hero.desc">Краткое описание в одно-два предложения: чем занимаетесь и что вы предлагаете.</p>
+        </div>
+        <div class="avatar-placeholder">
+          <img class="avatar-photo" src="./me.jpg" alt="Profile photo">
+        </div>
+      </section>
+
+      <section id="about">
+        <h2 data-i18n="about.heading">О себе</h2>
+        <p data-i18n="about.p1">Здесь первый абзац о вас: образование, опыт, ключевые навыки. Замените этот текст на свой.</p>
+        <p data-i18n="about.p2">Второй абзац: увлечения, подход к работе или личные качества, которые важны для вашего портфолио.</p>
+        <p data-i18n="about.p3">Третий абзац: цели, проекты или то, чем вы хотите поделиться с посетителями сайта.</p>
+      </section>
+
+      <section id="contact">
+        <h2 data-i18n="contact.heading">Контакты</h2>
+        <a href="mailto:your.email@example.com" class="contact-email" data-i18n="contact.email">your.email@example.com</a>
+        <div class="social-links">
+          <a href="https://github.com/your-username" target="_blank" rel="noopener noreferrer" title="GitHub">GH</a>
+          <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" title="LinkedIn">in</a>
+          <a href="https://t.me/your-username" target="_blank" rel="noopener noreferrer" title="Telegram">TG</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span data-i18n="footer.copyright">© 2025 Имя Фамилия</span>
+      <div class="lang-switch" role="tablist" aria-label="Выбор языка">
+        <button type="button" role="tab" aria-pressed="true" data-lang="ru" aria-selected="true">RU</button>
+        <button type="button" role="tab" aria-pressed="false" data-lang="en" aria-selected="false">EN</button>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = 'portfolio-lang';
+
+      const content = {
+        ru: {
+          'meta.title': 'Имя Фамилия — Заголовок',
+          'header.name': 'Имя Фамилия',
+          'nav.hero': 'Герой',
+          'nav.about': 'О себе',
+          'nav.contact': 'Контакты',
+          'hero.name': 'Имя Фамилия',
+          'hero.title': 'Ваша должность или слоган',
+          'hero.desc': 'Краткое описание в одно-два предложения: чем занимаетесь и что вы предлагаете.',
+          'about.heading': 'О себе',
+          'about.p1': 'Здесь первый абзац о вас: образование, опыт, ключевые навыки. Замените этот текст на свой.',
+          'about.p2': 'Второй абзац: увлечения, подход к работе или личные качества, которые важны для вашего портфолио.',
+          'about.p3': 'Третий абзац: цели, проекты или то, чем вы хотите поделиться с посетителями сайта.',
+          'contact.heading': 'Контакты',
+          'contact.email': 'your.email@example.com',
+          'footer.copyright': '© ' + new Date().getFullYear() + ' Имя Фамилия'
+        },
+        en: {
+          'meta.title': 'First Last — Title',
+          'header.name': 'First Last',
+          'nav.hero': 'Hero',
+          'nav.about': 'About',
+          'nav.contact': 'Contact',
+          'hero.name': 'First Last',
+          'hero.title': 'Your job title or tagline',
+          'hero.desc': 'Short description in one or two sentences: what you do and what you offer.',
+          'about.heading': 'About me',
+          'about.p1': 'First paragraph about you: education, experience, key skills. Replace this with your own text.',
+          'about.p2': 'Second paragraph: interests, approach to work, or personal qualities that matter for your portfolio.',
+          'about.p3': 'Third paragraph: goals, projects, or what you want to share with visitors.',
+          'contact.heading': 'Contact',
+          'contact.email': 'your.email@example.com',
+          'footer.copyright': '© ' + new Date().getFullYear() + ' First Last'
+        }
+      };
+
+      function getLang() {
+        try {
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (saved === 'en' || saved === 'ru') return saved;
+        } catch (_) {}
+        return 'ru';
+      }
+
+      function setLang(lang) {
+        try { localStorage.setItem(STORAGE_KEY, lang); } catch (_) {}
+      }
+
+      function applyLang(lang) {
+        const data = content[lang];
+        if (!data) return;
+        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+          const key = el.getAttribute('data-i18n');
+          if (data[key] !== undefined) {
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.value = data[key];
+            else if (el.getAttribute('data-i18n') === 'contact.email') {
+              el.textContent = data[key];
+              el.setAttribute('href', 'mailto:' + data[key]);
+            } else el.textContent = data[key];
+          }
+        });
+        document.documentElement.lang = lang === 'ru' ? 'ru' : 'en';
+        document.querySelectorAll('.lang-switch').forEach(function (group) {
+          group.querySelectorAll('button[data-lang]').forEach(function (btn) {
+            const isActive = btn.getAttribute('data-lang') === lang;
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-pressed', isActive);
+            btn.setAttribute('aria-selected', isActive);
+          });
+        });
+      }
+
+      function init() {
+        const lang = getLang();
+        applyLang(lang);
+        document.querySelectorAll('.lang-switch button[data-lang]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            const l = btn.getAttribute('data-lang');
+            setLang(l);
+            applyLang(l);
+          });
+        });
+      }
+
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+      else init();
+    })();
+  </script>
+</body>
+</html>

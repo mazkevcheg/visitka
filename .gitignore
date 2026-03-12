@@ -1,0 +1,25 @@
+﻿# Ignore temp and editor/system folders
+1771840966247/
+1771852206696/
+C-Users-*/
+c-Users-*/
+.docx_extracted/
+docx_extracted/
+*.env
+*.key
+*.pem
+*.pfx
+*.p12
+*.cert
+*.crt
+*.db
+*.sqlite
+.vscode/
+.idea/
+
+# Ignore helper python scripts and data not needed for portfolio site
+change_docx_date.py
+extract_docx.py
+split_payslips.py
+capital-portrait.jpg
+
