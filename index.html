@@ -409,9 +409,16 @@
       width: 52px;
       height: 52px;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 0, #e0e0e0, #333333);
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.65);
+      overflow: hidden;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
       flex-shrink: 0;
+    }
+
+    .portfolio-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .portfolio-name {
@@ -791,7 +798,7 @@
         portfolioPreview.innerHTML =
           '<article class="portfolio-root">' +
           '  <header class="portfolio-hero">' +
-          '    <div class="portfolio-avatar" aria-hidden="true"></div>' +
+          '    <div class="portfolio-avatar" aria-hidden="true"><img src="./me.jpg" alt="Profile photo" /></div>' +
           '    <div>' +
           '      <h1 class="portfolio-name">' +
           escapeHtml(name) +
