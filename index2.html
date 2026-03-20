@@ -56,6 +56,16 @@
       border-color: var(--accent-2);
     }
 
+    html[data-theme="light"] .hero-name {
+      /* Override gradient text for readable contrast on light backgrounds */
+      background: linear-gradient(135deg, #0f172a 0%, #7c3aed 100%);
+      -webkit-text-fill-color: transparent;
+    }
+
+    html[data-theme="light"] .hero-title {
+      color: #4c1d95;
+    }
+
     * {
       box-sizing: border-box;
     }
