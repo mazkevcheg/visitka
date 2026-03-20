@@ -19,6 +19,43 @@
       --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
     }
 
+    html[data-theme="light"] {
+      --bg-top: #f8fafc;
+      --bg-bottom: #e5e7eb;
+      --surface: rgba(255, 255, 255, 0.82);
+      --surface-strong: rgba(255, 255, 255, 0.95);
+      --text: #0f172a;
+      --muted: rgba(15, 23, 42, 0.68);
+      --line: rgba(15, 23, 42, 0.12);
+      --shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+    }
+
+    html[data-theme="light"] body {
+      background: radial-gradient(circle at 15% 0%, rgba(124, 58, 237, 0.14), transparent 35%),
+                  radial-gradient(circle at 90% 10%, rgba(124, 58, 237, 0.10), transparent 28%),
+                  linear-gradient(160deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+      color: var(--text);
+    }
+
+    html[data-theme="light"] .site-header {
+      background: rgba(255, 255, 255, 0.75);
+      border-bottom-color: var(--line);
+    }
+
+    html[data-theme="light"] .brand {
+      color: var(--text);
+    }
+
+    html[data-theme="light"] .email-link {
+      color: var(--text);
+      border-bottom-color: rgba(15, 23, 42, 0.25);
+    }
+
+    html[data-theme="light"] .email-link:hover {
+      color: var(--accent-2);
+      border-color: var(--accent-2);
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -137,6 +174,28 @@
     .social-link:focus-visible,
     .email-link:focus-visible,
     .nav a:focus-visible {
+      outline: 2px solid var(--accent-2);
+      outline-offset: 2px;
+    }
+
+    .theme-toggle {
+      border: 1px solid var(--line);
+      background: rgba(245, 245, 247, 0.04);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 0.42rem 0.8rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .theme-toggle:hover {
+      background: rgba(245, 245, 247, 0.08);
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+    .theme-toggle:focus-visible {
       outline: 2px solid var(--accent-2);
       outline-offset: 2px;
     }
@@ -341,11 +400,109 @@
       box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
     }
 
+    /* Contact form */
+    .contact-form {
+      margin-top: 1.2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+    }
+    .form-title {
+      margin: 0 0 0.9rem;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+    .contact-form-grid {
+      display: grid;
+      gap: 0.75rem;
+    }
+    .form-label {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text);
+      opacity: 0.9;
+    }
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 0.75rem 0.95rem;
+      border-radius: 14px;
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      font: inherit;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+    .form-textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+    .form-input:focus-visible,
+    .form-textarea:focus-visible {
+      border-color: rgba(168, 85, 247, 0.85);
+      box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.35);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .form-error {
+      min-height: 1rem;
+      font-size: 0.85rem;
+      color: #fecaca;
+    }
+    .form-send-btn {
+      border-radius: 999px;
+      padding: 0.8rem 1.2rem;
+      border: 0;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #ffffff;
+      transition: transform 0.18s, box-shadow 0.2s, opacity 0.2s;
+      box-shadow: 0 14px 30px rgba(124, 58, 237, 0.35);
+      justify-self: start;
+    }
+    .form-send-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 36px rgba(124, 58, 237, 0.45);
+    }
+    .form-send-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    html[data-theme="light"] .form-input,
+    html[data-theme="light"] .form-textarea {
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--text);
+      border-color: rgba(124, 58, 237, 0.25);
+    }
+
+    html[data-theme="light"] .form-error {
+      color: #b91c1c;
+    }
+
     .site-footer {
       padding: 0.3rem 0 1.7rem;
       color: #a8abc7;
       font-size: 0.9rem;
       text-align: center;
+    }
+
+    .visitor-text {
+      display: block;
+      margin-top: 0.35rem;
+      color: rgba(168, 171, 199, 0.95);
+      font-weight: 700;
+    }
+
+    html[data-theme="light"] .site-footer {
+      color: rgba(15, 23, 42, 0.55);
+    }
+    html[data-theme="light"] .visitor-text {
+      color: rgba(15, 23, 42, 0.6);
     }
 
     @media (min-width: 1024px) {
@@ -410,6 +567,7 @@
         <button class="lang-btn" type="button" data-lang="ru" aria-pressed="false">RU</button>
         <button class="lang-btn" type="button" data-lang="en" aria-pressed="false">EN</button>
       </div>
+      <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light mode">Light</button>
     </div>
   </header>
 
@@ -454,12 +612,31 @@
           <a class="social-link" href="https://t.me/username" target="_blank" rel="noreferrer noopener" aria-label="Telegram">TG</a>
         </div>
       </div>
+
+      <div class="contact-form">
+        <h3 class="form-title" data-i18n="form.title">Write me</h3>
+        <form id="contactForm" class="contact-form-grid" novalidate>
+          <label class="form-label" for="formName" data-i18n="form.name">Name</label>
+          <input id="formName" name="name" class="form-input" type="text" autocomplete="name" required />
+
+          <label class="form-label" for="formEmail" data-i18n="form.email">Email</label>
+          <input id="formEmail" name="email" class="form-input" type="email" inputmode="email" autocomplete="email" required />
+
+          <label class="form-label" for="formMessage" data-i18n="form.message">Message</label>
+          <textarea id="formMessage" name="message" class="form-textarea" required></textarea>
+
+          <div class="form-error" id="formError" aria-live="polite"></div>
+
+          <button id="formSendBtn" class="form-send-btn" type="submit" disabled data-i18n="form.send">Send</button>
+        </form>
+      </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container">
       <small data-i18n="footer.copy">© 2026 Ваше Имя. Все права защищены.</small>
+      <small id="visitorText" class="visitor-text" aria-live="polite"></small>
     </div>
   </footer>
 
@@ -483,6 +660,16 @@
           p3: "Открыт к проектам, где важны скорость, качество реализации и внимание к деталям."
         },
         contact: { title: "Контакты" },
+        form: {
+          title: "Написать мне",
+          name: "Имя",
+          email: "Email",
+          message: "Сообщение",
+          send: "Отправить",
+          invalidEmail: "Введите корректный email.",
+          required: "Заполните все поля.",
+          sent: "Сообщение отправлено! (демо)"
+        },
         footer: { copy: "© 2026 Ваше Имя. Все права защищены." }
       },
       en: {
@@ -503,9 +690,135 @@
           p3: "Open to projects where speed, build quality, and attention to detail truly matter."
         },
         contact: { title: "Contacts" },
+        form: {
+          title: "Write me",
+          name: "Your name",
+          email: "Email",
+          message: "Message",
+          send: "Send",
+          invalidEmail: "Please enter a valid email.",
+          required: "Please fill in all fields.",
+          sent: "Message sent! (demo)"
+        },
         footer: { copy: "© 2026 Your Name. All rights reserved." }
       }
     };
+
+    const THEME_KEY = 'portfolio-theme';
+    const VISITOR_KEY = 'portfolio-visitors-index2';
+    const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let visitorCount = 0;
+
+    function getTheme() {
+      try {
+        const saved = localStorage.getItem(THEME_KEY);
+        if (saved === 'light' || saved === 'dark') return saved;
+      } catch (_) {}
+      return 'dark';
+    }
+
+    function updateThemeToggleLabel() {
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      const isLight = document.documentElement.dataset.theme === 'light';
+      btn.textContent = isLight ? 'Dark' : 'Light';
+    }
+
+    function setTheme(theme) {
+      document.documentElement.dataset.theme = theme === 'light' ? 'light' : 'dark';
+      try { localStorage.setItem(THEME_KEY, theme); } catch (_) {}
+      updateThemeToggleLabel();
+    }
+
+    function bumpVisitorCount() {
+      try {
+        const raw = localStorage.getItem(VISITOR_KEY);
+        const current = raw ? parseInt(raw, 10) : 0;
+        const next = (Number.isFinite(current) ? current : 0) + 1;
+        localStorage.setItem(VISITOR_KEY, String(next));
+        return next;
+      } catch (_) {
+        return 1;
+      }
+    }
+
+    function updateVisitorText() {
+      const el = document.getElementById('visitorText');
+      if (!el) return;
+      const lang = document.documentElement.lang === 'en' ? 'en' : 'ru';
+      el.textContent = lang === 'en'
+        ? `You are visitor #${visitorCount}`
+        : `Вы ${visitorCount}-й посетитель`;
+    }
+
+    function syncFormUI() {
+      const form = document.getElementById('contactForm');
+      if (!form) return;
+
+      const nameInput = document.getElementById('formName');
+      const emailInput = document.getElementById('formEmail');
+      const messageInput = document.getElementById('formMessage');
+      const errorEl = document.getElementById('formError');
+      const sendBtn = document.getElementById('formSendBtn');
+
+      if (!nameInput || !emailInput || !messageInput || !errorEl || !sendBtn) return;
+
+      const lang = document.documentElement.lang === 'en' ? 'en' : 'ru';
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const message = messageInput.value.trim();
+      const emailOk = EMAIL_REGEX.test(email);
+
+      const allFilled = Boolean(name && email && message);
+      const ok = allFilled && emailOk;
+      sendBtn.disabled = !ok;
+
+      if (email && !emailOk) errorEl.textContent = content[lang].form.invalidEmail;
+      else errorEl.textContent = '';
+    }
+
+    function initContactForm() {
+      const form = document.getElementById('contactForm');
+      if (!form) return;
+
+      const nameInput = document.getElementById('formName');
+      const emailInput = document.getElementById('formEmail');
+      const messageInput = document.getElementById('formMessage');
+
+      if (!nameInput || !emailInput || !messageInput) return;
+
+      const onInput = () => syncFormUI();
+      nameInput.addEventListener('input', onInput);
+      emailInput.addEventListener('input', onInput);
+      messageInput.addEventListener('input', onInput);
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const lang = document.documentElement.lang === 'en' ? 'en' : 'ru';
+
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const message = messageInput.value.trim();
+
+        const emailOk = EMAIL_REGEX.test(email);
+        const allFilled = Boolean(name && email && message);
+
+        if (!allFilled) {
+          alert(content[lang].form.required);
+          return;
+        }
+        if (!emailOk) {
+          alert(content[lang].form.invalidEmail);
+          return;
+        }
+
+        alert(content[lang].form.sent);
+        form.reset();
+        syncFormUI();
+      });
+
+      syncFormUI();
+    }
 
     const langButtons = document.querySelectorAll(".lang-btn");
     const i18nNodes = document.querySelectorAll("[data-i18n]");
@@ -536,10 +849,26 @@
       });
 
       localStorage.setItem("portfolio-language", selected);
+
+      updateVisitorText();
+      syncFormUI();
+      updateThemeToggleLabel();
     }
 
     const savedLanguage = localStorage.getItem("portfolio-language") || "ru";
+    visitorCount = bumpVisitorCount();
+    setTheme(getTheme());
     setLanguage(savedLanguage);
+    initContactForm();
+
+    const themeToggleBtn = document.getElementById('themeToggle');
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', function () {
+        const current = getTheme();
+        const next = current === 'light' ? 'dark' : 'light';
+        setTheme(next);
+      });
+    }
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduceMotion) {
